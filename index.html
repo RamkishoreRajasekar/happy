@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ✨</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+  
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffe6f7, #c8e7ff);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: float 6s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0.7; }
+    50% { transform: translateY(-200px) translateX(30px) scale(1); opacity: 1; }
+    100% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0.7; }
+  }
+
+  .card {
+    background: white;
+    padding: 80px 100px;
+    border-radius: 30px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 420px;
+    max-width: 90%;
+    z-index: 1;
+    border: 2px solid rgba(255,255,255,0.5);
+    animation: cardGlow 2s infinite alternate;
+  }
+
+  @keyframes cardGlow {
+    0% { box-shadow: 0 10px 50px rgba(0,0,0,0.1); border-color: rgba(255,255,255,0.5);}
+    100% { box-shadow: 0 10px 60px rgba(255,192,203,0.4); border-color: rgba(255,192,203,0.7);}
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  p {
+    color: #555;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  .cake {
+    font-size: 3.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease, text-shadow 0.3s ease, opacity 1s ease;
+    animation: cakePulse 2s infinite;
+  }
+
+  @keyframes cakePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .message {
+    display: none;
+    margin-top: 30px;
+    font-size: 1.3em;
+    color: #444;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall 2s linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  .firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fireworkAnim 1s ease-out forwards;
+  }
+
+  @keyframes fireworkAnim {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0.5); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- Floating sparkles -->
+  <script>
+    for(let i = 0; i < 50; i++){
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      sparkle.style.animationDuration = 4 + Math.random() * 4 + 's';
+      sparkle.style.opacity = Math.random();
+      sparkle.style.width = sparkle.style.height = 3 + Math.random() * 6 + 'px';
+      document.body.appendChild(sparkle);
+    }
+  </script>
+
+  <div class="card">
+    <h1>Happy Birthday ✨</h1>
+    <p>Click the cake and make your wish 🎂</p>
+    <div class="cake" id="cake">🎂</div>
+    <div class="message" id="message">Your wish has been sent to the stars ✨</div>
+  </div>
+
+  <script>
+    const cake = document.getElementById('cake');
+    const message = document.getElementById('message');
+
+    cake.addEventListener('click', () => {
+      message.style.display = 'block';
+
+      // Fade out the cake
+      cake.style.opacity = 0;
+      setTimeout(() => cake.style.display = 'none', 1000);
+
+      // Confetti
+      for (let i = 0; i < 60; i++) {
+        let confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        document.body.appendChild(confetti);
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDuration = 2 + Math.random() * 2 + 's';
+        setTimeout(() => confetti.remove(), 3000);
+      }
+
+      // Fireworks
+      for (let i = 0; i < 20; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        firework.style.left = (window.innerWidth/2 - 10 + Math.random()*20) + 'px';
+        firework.style.top = (window.innerHeight/2 - 10 + Math.random()*20) + 'px';
+        const x = (Math.random()-0.5) * 200 + 'px';
+        const y = (Math.random()-0.5) * 200 + 'px';
+        firework.style.setProperty('--x', x);
+        firework.style.setProperty('--y', y);
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }
+    });
+  </script>
+
+</body>
+</html>
